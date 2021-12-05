@@ -1,0 +1,373 @@
+﻿<Window x:Class="TodoApp2.View.TodoAppView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TodoApp2.View"
+        xmlns:viewModel="clr-namespace:TodoApp2.ViewModel"
+        mc:Ignorable="d"
+        Title="TodoAppView" Height="550" Width="600" Background="#242638">
+    <Window.DataContext>
+        <viewModel:TodoViewModel></viewModel:TodoViewModel>
+    </Window.DataContext>
+
+
+
+    <Grid Name="MainGrid" Background="#242638">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <!--<RowDefinition Height="Auto"></RowDefinition>-->
+        </Grid.RowDefinitions>
+        <StackPanel  Grid.Row="0">
+            <TextBlock Text="Todo Items" Padding="20" Foreground="#fae800" FontSize="20"></TextBlock>
+            <!--<Rectangle  HorizontalAlignment="Stretch" Fill="#fae800" Height="1"/>-->
+            <Rectangle  HorizontalAlignment="Stretch" Fill="#53586E" Height="1"/>
+
+        </StackPanel>
+
+        <TextBlock Name="init" Grid.Row="1" Text="Wow, empty here.. Start Todoing!" Margin="0 20 0 0" Foreground="white" FontSize="16" TextAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Title}" Value="'a'">
+                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <ScrollViewer Grid.Row="1"  VerticalScrollBarVisibility="Auto">
+
+
+            <!--=========================================================================================================================
+            ================================================  TODO LIST - START   ================================================================
+            =========================================================================================================================-->
+
+            <!--<local:TodoListView></local:TodoListView>-->
+
+            <ItemsControl ItemsSource="{Binding Todos}" 
+                         
+                      Foreground="white"
+                      >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button HorizontalAlignment="Stretch" Padding="0 0 0 0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"  Name="SelectTodo" Command="{Binding DataContext.SelectCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
+                        CommandParameter="{Binding Id}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <ContentPresenter Content="{TemplateBinding Content}"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="Width" Value="600"/>
+                                </Style>
+
+                            </Button.Resources>
+                            <!--<Button Name="SelectTodo" Command="{Binding DataContext.SelectCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"-->
+                            <!--<Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <TextBlock Text="{TemplateBinding Content}" />
+                                </ControlTemplate>
+                            </Button.Template>-->
+
+                            <StackPanel  Cursor="Hand" Width="600">
+
+
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Background" Value="#33364F"></Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#2E3047"></Setter>
+                                            </Trigger>
+                                            <DataTrigger Binding="{Binding Selected}" Value="true">
+                                                <Setter Property="Background" Value="#242638"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0" Width="5" >
+                                        <!--<Border.Style>-->
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+
+                                                <Style.Triggers>
+
+                                                    <DataTrigger Binding="{Binding Selected}" Value="true">
+                                                        <Setter Property="Background" Value="#fae800"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                    </Grid>
+
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"></RowDefinition>
+                                            <RowDefinition Height="Auto"></RowDefinition>
+                                        </Grid.RowDefinitions>
+
+                                        <Border  Padding="20"  Grid.Row="0">
+
+                                            <Grid >
+
+                                                <Grid.ColumnDefinitions >
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                </Grid.ColumnDefinitions>
+
+
+                                                <!--=========================================================================================================================================================================
+                                                ============================================================         CHECKBOX  - start           ==================================================================
+                                                ========================================================================================================================================================================-->
+
+                                                <!--<CheckBox Name="ToggleChecked"  VerticalAlignment="Center" Background="{x:Null}" Grid.Column="0" Margin="0 0 20 0" IsChecked="{Binding IsChecked, Mode=TwoWay}" Command="{Binding ActionCommand}" CommandParameter="{Binding ElementName=ToggleChecked, Path=Name}">
+                                                </CheckBox>-->
+                                                <Button Command="{Binding DataContext.CheckedCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
+                       
+                                                        CommandParameter="{Binding Id}">
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                    <!--<Rectangle Width="23" Height="23" StrokeThickness="3" Margin="0 0 20 0">
+                                                        <Rectangle.Resources>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="CornerRadius" Value="10"/>
+                                                            </Style>
+                                                        </Rectangle.Resources>
+                                                        <Rectangle.Style>
+                                                            <Style TargetType="Rectangle">
+
+                                                                <Style.Triggers>
+
+                                                                    <DataTrigger Binding="{Binding IsChecked}" Value="True">
+                                                                        <Setter Property="Fill" Value="#fae800"/>
+                                                                        <Setter Property="Stroke" Value="#fae800" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding IsChecked}" Value="False">
+                                                                        <Setter Property="Fill" Value="#33364f" />
+                                                                        <Setter Property="Stroke" Value="White" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding Selected}" Value="True">
+                                                                        <Setter Property="Fill" Value="#242638" />
+                                                                       
+                                                                    </DataTrigger>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Stroke" Value="#fae800"></Setter>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Rectangle.Style>
+
+                                                    </Rectangle>-->
+                                                    <Border BorderThickness="3" CornerRadius="2"  Padding="0" Width="25" Height="25" Margin="0 0 20 0">
+                                                        <!--<Border.Resources>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="CornerRadius" Value="3"></Setter>
+                                                            </Style>
+                                                        </Border.Resources>-->
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="BorderBrush" Value="#fae800"></Setter>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                                        <Setter Property="BorderBrush" Value="white"></Setter>
+                                                                    </Trigger>
+                                                                    <DataTrigger Binding="{Binding IsChecked}" Value="True">
+                                                                     
+                                                                        <Setter Property="Background" Value="#fae800"></Setter>
+                                                                        <Setter Property="BorderBrush" Value="#fae800" />
+
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                                
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Grid HorizontalAlignment="Stretch" Height="22"  Background="#fae800">
+                                                            <Grid.Style>
+
+                                                                <Style TargetType="Grid">
+
+                                                                    <Style.Triggers>
+
+                                                                        <DataTrigger Binding="{Binding IsChecked}" Value="True">
+                                                                          
+                                                                            <Setter Property="Opacity" Value="1" />
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding IsChecked}" Value="False">
+                                                                          
+                                                                            <Setter Property="Opacity" Value="0" />
+                                                                        </DataTrigger>
+                                                                       
+                                                                    </Style.Triggers>
+                                                                </Style>
+
+                                                            </Grid.Style>
+                                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" LineHeight="25" TextAlignment="Center">✔</TextBlock>
+                                                        </Grid>
+                                                    </Border>
+                                                </Button>
+
+
+
+                                                <!--=========================================================================================================================================================================
+                                                ============================================================         CHECKBOX     - end       ==================================================================
+                                                ========================================================================================================================================================================-->
+
+
+
+
+
+
+                                                <StackPanel  Grid.Column="1"  HorizontalAlignment="Left"  Width="450">
+                                                    <!--<Label Content="{Binding Id}"  FontSize="16" Margin="0 0 0 7"></Label>-->
+
+                                                    <TextBlock   FontSize="16"  TextWrapping="Wrap" Margin="0 0 0 7">
+
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding IsChecked}" Value="true">
+                                                                        <Setter Property="Foreground" Value="#6E7386"/>
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding IsChecked}" Value="False">
+                                                                        <Setter Property="Foreground" Value="White"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+
+                                                       <!--Click="OnShowModalClick"-->
+
+                                               
+                                        <Run  Text="{Binding Id}" />.
+                                         <Run Text="{Binding Title}" />
+                                         <!--<Run Text="{Binding IsChecked}" />
+                                         <Run Text="{Binding Selected}" />-->
+
+                                                    </TextBlock>
+                                                    <TextBlock Text="{Binding Description}" FontSize="12" TextWrapping="Wrap">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding IsChecked}" Value="true">
+                                                                        <Setter Property="Foreground" Value="#525671"/>
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding IsChecked}" Value="False">
+                                                                        <Setter Property="Foreground" Value="#9699AC"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                                <Button Grid.Column="2"
+                                                Click="OnShowModalClick"
+                                                        Command="{Binding DataContext.EditCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                                         CommandParameter="{Binding Id}"
+                                                        >
+                                                    <Button.Template>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                                                        </ControlTemplate>
+                                                    </Button.Template>
+                                                    <TextBlock Text="Edit"  VerticalAlignment="Center" Margin="0 0 20 0">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Foreground" Value="LightGray"></Setter>
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="False">
+                                                                        <Setter Property="Foreground" Value="#9699AC"></Setter>
+                                                                    </Trigger>
+
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+
+                                                </Button>
+
+                                            </Grid>
+                                        </Border>
+                                        <Rectangle Grid.Row="1" HorizontalAlignment="center" Width="550" Fill="#53586E" Height="2"/>
+                                    </Grid>
+                                </Grid>
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+            <!--=========================================================================================================================
+            ================================================  TODO LIST - END  ================================================================
+            =========================================================================================================================-->
+        </ScrollViewer>
+
+
+        <local:TodoComposeView    
+            Grid.RowSpan="2"
+            Visibility="Collapsed"
+       x:Name="TodoComposeView"
+          Panel.ZIndex="10" Loaded="TodoComposeView_Loaded"
+            >
+
+
+
+
+        </local:TodoComposeView>
+
+        <!--<StackPanel Grid.Row="2" Margin="20 10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">-->
+        <StackPanel Grid.RowSpan="2" Margin="20 10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+
+            <Button
+                Margin="0 0 10 0"
+                 VerticalContentAlignment="center"
+                FontSize="30" Content="🗑" 
+                FontWeight="Normal" Cursor="Hand" Height="55" 
+                Width="50" UseLayoutRounding="True"
+                Background="#FC4850"
+                Command="{Binding DeleteCommand}" 
+                       >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="28"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <!--<Button Content="Focus" Click="Find"></Button>-->
+            <Button 
+                VerticalContentAlignment="center"
+                FontSize="30" Content="+" Click="OnShowModalClick"
+                FontWeight="Normal" Cursor="Hand" Height="55" 
+                Width="50" UseLayoutRounding="True"
+                Background="#FAE800" HorizontalContentAlignment="Center">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="28"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+
+        <!--<Button Name="AddTodo" Height="30" Width="200" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="DarkRed" Content="Add Todo" Command="{Binding ActionCommand}" CommandParameter="{Binding ElementName=AddTodo, Path=Name}"/>-->
+    </Grid>
+</Window>
