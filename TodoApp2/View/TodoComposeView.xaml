@@ -64,7 +64,8 @@
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
                     <Label Content="Title:"></Label>
-                    <TextBox Text="{Binding Title}" Padding="10 5">
+                    <!--<TextBox Name="Title" KeyDown="OnKeyDownHandler" Text="{Binding Title}" Padding="10 5">-->
+                    <TextBox Name="Title" Text="{Binding Title}" Padding="10 5">
                         <TextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="10"/>
@@ -82,7 +83,6 @@
                     <Label Content="Description:"></Label>
                     <TextBox
                          Padding="10 5"
-                       
                 Text="{Binding Description}"
                 MinLines="4"
                 MaxLines="10"

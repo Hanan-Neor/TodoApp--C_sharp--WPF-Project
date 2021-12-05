@@ -19,19 +19,20 @@
             <RowDefinition Height="*"></RowDefinition>
             <!--<RowDefinition Height="Auto"></RowDefinition>-->
         </Grid.RowDefinitions>
+
         <StackPanel  Grid.Row="0">
-            <TextBlock Text="Todo Items" Padding="20" Foreground="#fae800" FontSize="20"></TextBlock>
+            <TextBlock Text="Todo Items" Padding="20" Foreground="#fae800" FontSize="20"/>
             <!--<Rectangle  HorizontalAlignment="Stretch" Fill="#fae800" Height="1"/>-->
             <Rectangle  HorizontalAlignment="Stretch" Fill="#53586E" Height="1"/>
 
         </StackPanel>
 
-        <TextBlock Name="init" Grid.Row="1" Text="Wow, empty here.. Start Todoing!" Margin="0 20 0 0" Foreground="white" FontSize="16" TextAlignment="Center">
+        <TextBlock x:Name="init" Grid.Row="1" Text="Wow, empty here.. Start Todoing!" Margin="0 20 0 0" Foreground="white" FontSize="16" TextAlignment="Center">
             <TextBlock.Style>
-                <Style TargetType="TextBlock">
+                <Style TargetType="{x:Type TextBlock}">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Title}" Value="'a'">
-                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                            <Setter Property="Visibility" Value="Collapsed"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -53,20 +54,23 @@
                       >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button HorizontalAlignment="Stretch" Padding="0 0 0 0" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"  Name="SelectTodo" Command="{Binding DataContext.SelectCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
+                        <Button HorizontalAlignment="Stretch" Padding="0 0 0 0"  x:Name="SelectTodo" Command="{Binding DataContext.SelectCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
                         CommandParameter="{Binding Id}">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <ContentPresenter Content="{TemplateBinding Content}"/>
-                                </ControlTemplate>
-                            </Button.Template>
                             <Button.Resources>
-                                <Style TargetType="Border">
+                                <Style TargetType="{x:Type Border}">
                                     <Setter Property="Width" Value="600"/>
                                 </Style>
 
                             </Button.Resources>
                             <!--<Button Name="SelectTodo" Command="{Binding DataContext.SelectCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"-->
+                            <Button.Style>
+                                <StaticResource ResourceKey="{x:Static ToolBar.ButtonStyleKey}"/>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <ContentPresenter Content="{TemplateBinding Content}"/>
+                                </ControlTemplate>
+                            </Button.Template>
                             <!--<Button.Template>
                                 <ControlTemplate TargetType="Button">
                                     <TextBlock Text="{TemplateBinding Content}" />
@@ -77,11 +81,11 @@
 
 
                                 <StackPanel.Style>
-                                    <Style TargetType="StackPanel">
-                                        <Setter Property="Background" Value="#33364F"></Setter>
+                                    <Style TargetType="{x:Type StackPanel}">
+                                        <Setter Property="Background" Value="#33364F"/>
                                         <Style.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="#2E3047"></Setter>
+                                                <Setter Property="Background" Value="#2E3047"/>
                                             </Trigger>
                                             <DataTrigger Binding="{Binding Selected}" Value="true">
                                                 <Setter Property="Background" Value="#242638"/>
@@ -92,14 +96,14 @@
 
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="5"></ColumnDefinition>
-                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="5"/>
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <Grid Grid.Column="0" Width="5" >
                                         <!--<Border.Style>-->
                                         <Grid.Style>
-                                            <Style TargetType="Grid">
+                                            <Style TargetType="{x:Type Grid}">
 
                                                 <Style.Triggers>
 
@@ -113,8 +117,8 @@
 
                                     <Grid Grid.Column="1">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"></RowDefinition>
-                                            <RowDefinition Height="Auto"></RowDefinition>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
 
                                         <Border  Padding="20"  Grid.Row="0">
@@ -122,9 +126,9 @@
                                             <Grid >
 
                                                 <Grid.ColumnDefinitions >
-                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
 
 
@@ -134,11 +138,11 @@
 
                                                 <!--<CheckBox Name="ToggleChecked"  VerticalAlignment="Center" Background="{x:Null}" Grid.Column="0" Margin="0 0 20 0" IsChecked="{Binding IsChecked, Mode=TwoWay}" Command="{Binding ActionCommand}" CommandParameter="{Binding ElementName=ToggleChecked, Path=Name}">
                                                 </CheckBox>-->
-                                                <Button Command="{Binding DataContext.CheckedCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
+                                                <Button Command="{Binding DataContext.CheckedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" 
                        
                                                         CommandParameter="{Binding Id}">
                                                     <Button.Template>
-                                                        <ControlTemplate TargetType="Button">
+                                                        <ControlTemplate TargetType="{x:Type Button}">
                                                             <ContentPresenter Content="{TemplateBinding Content}"/>
                                                         </ControlTemplate>
                                                     </Button.Template>
@@ -180,45 +184,45 @@
                                                             </Style>
                                                         </Border.Resources>-->
                                                         <Border.Style>
-                                                            <Style TargetType="Border">
+                                                            <Style TargetType="{x:Type Border}">
                                                                 <Style.Triggers>
                                                                     <Trigger Property="IsMouseOver" Value="True">
-                                                                        <Setter Property="BorderBrush" Value="#fae800"></Setter>
+                                                                        <Setter Property="BorderBrush" Value="#fae800"/>
                                                                     </Trigger>
                                                                     <Trigger Property="IsMouseOver" Value="False">
-                                                                        <Setter Property="BorderBrush" Value="white"></Setter>
+                                                                        <Setter Property="BorderBrush" Value="white"/>
                                                                     </Trigger>
                                                                     <DataTrigger Binding="{Binding IsChecked}" Value="True">
-                                                                     
-                                                                        <Setter Property="Background" Value="#fae800"></Setter>
+
+                                                                        <Setter Property="Background" Value="#fae800"/>
                                                                         <Setter Property="BorderBrush" Value="#fae800" />
 
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
-                                                                
+
                                                             </Style>
                                                         </Border.Style>
-                                                        <Grid HorizontalAlignment="Stretch" Height="22"  Background="#fae800">
+                                                        <Grid HorizontalAlignment="Stretch" Height="22" Margin="0"  Background="#fae800">
                                                             <Grid.Style>
 
-                                                                <Style TargetType="Grid">
+                                                                <Style TargetType="{x:Type Grid}">
 
                                                                     <Style.Triggers>
 
                                                                         <DataTrigger Binding="{Binding IsChecked}" Value="True">
-                                                                          
+
                                                                             <Setter Property="Opacity" Value="1" />
                                                                         </DataTrigger>
                                                                         <DataTrigger Binding="{Binding IsChecked}" Value="False">
-                                                                          
+
                                                                             <Setter Property="Opacity" Value="0" />
                                                                         </DataTrigger>
-                                                                       
+
                                                                     </Style.Triggers>
                                                                 </Style>
 
                                                             </Grid.Style>
-                                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" LineHeight="25" TextAlignment="Center">✔</TextBlock>
+                                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" LineHeight="25" TextAlignment="Center"><Run Text="✔"/></TextBlock>
                                                         </Grid>
                                                     </Border>
                                                 </Button>
@@ -238,9 +242,8 @@
                                                     <!--<Label Content="{Binding Id}"  FontSize="16" Margin="0 0 0 7"></Label>-->
 
                                                     <TextBlock   FontSize="16"  TextWrapping="Wrap" Margin="0 0 0 7">
-
                                                         <TextBlock.Style>
-                                                            <Style TargetType="TextBlock">
+                                                            <Style TargetType="{x:Type TextBlock}">
                                                                 <Style.Triggers>
                                                                     <DataTrigger Binding="{Binding IsChecked}" Value="true">
                                                                         <Setter Property="Foreground" Value="#6E7386"/>
@@ -250,20 +253,11 @@
                                                                     </DataTrigger>
                                                                 </Style.Triggers>
                                                             </Style>
-                                                        </TextBlock.Style>
-
-                                                       <!--Click="OnShowModalClick"-->
-
-                                               
-                                        <Run  Text="{Binding Id}" />.
-                                         <Run Text="{Binding Title}" />
-                                         <!--<Run Text="{Binding IsChecked}" />
-                                         <Run Text="{Binding Selected}" />-->
-
-                                                    </TextBlock>
+                                                        </TextBlock.Style><!--Click="OnShowModalClick"--><Run  Text="{Binding Id}" /><Run Text=". "/><Run Text="{Binding Title}" /><!--<Run Text="{Binding IsChecked}" />
+                                         <Run Text="{Binding Selected}" />--></TextBlock>
                                                     <TextBlock Text="{Binding Description}" FontSize="12" TextWrapping="Wrap">
                                                         <TextBlock.Style>
-                                                            <Style TargetType="TextBlock">
+                                                            <Style TargetType="{x:Type TextBlock}">
                                                                 <Style.Triggers>
                                                                     <DataTrigger Binding="{Binding IsChecked}" Value="true">
                                                                         <Setter Property="Foreground" Value="#525671"/>
@@ -278,24 +272,24 @@
                                                 </StackPanel>
                                                 <Button Grid.Column="2"
                                                 Click="OnShowModalClick"
-                                                        Command="{Binding DataContext.EditCommand , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                                        Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
                                                          CommandParameter="{Binding Id}"
                                                         >
                                                     <Button.Template>
-                                                        <ControlTemplate TargetType="Button">
+                                                        <ControlTemplate TargetType="{x:Type Button}">
                                                             <ContentPresenter Content="{TemplateBinding Content}"/>
                                                         </ControlTemplate>
                                                     </Button.Template>
                                                     <TextBlock Text="Edit"  VerticalAlignment="Center" Margin="0 0 20 0">
                                                         <TextBlock.Style>
-                                                            <Style TargetType="TextBlock">
+                                                            <Style TargetType="{x:Type TextBlock}">
 
                                                                 <Style.Triggers>
                                                                     <Trigger Property="IsMouseOver" Value="True">
-                                                                        <Setter Property="Foreground" Value="LightGray"></Setter>
+                                                                        <Setter Property="Foreground" Value="LightGray"/>
                                                                     </Trigger>
                                                                     <Trigger Property="IsMouseOver" Value="False">
-                                                                        <Setter Property="Foreground" Value="#9699AC"></Setter>
+                                                                        <Setter Property="Foreground" Value="#9699AC"/>
                                                                     </Trigger>
 
                                                                 </Style.Triggers>
@@ -328,12 +322,7 @@
             Visibility="Collapsed"
        x:Name="TodoComposeView"
           Panel.ZIndex="10" Loaded="TodoComposeView_Loaded"
-            >
-
-
-
-
-        </local:TodoComposeView>
+            />
 
         <!--<StackPanel Grid.Row="2" Margin="20 10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">-->
         <StackPanel Grid.RowSpan="2" Margin="20 10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
@@ -348,7 +337,7 @@
                 Command="{Binding DeleteCommand}" 
                        >
                 <Button.Resources>
-                    <Style TargetType="Border">
+                    <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="28"/>
                     </Style>
                 </Button.Resources>
@@ -361,7 +350,7 @@
                 Width="50" UseLayoutRounding="True"
                 Background="#FAE800" HorizontalContentAlignment="Center">
                 <Button.Resources>
-                    <Style TargetType="Border">
+                    <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="28"/>
                     </Style>
                 </Button.Resources>
