@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        
         <StackPanel  Grid.Row="0">
             <TextBlock Text="Todo Items" Padding="20" Foreground="#fae800" FontSize="20"/>
             <Rectangle  HorizontalAlignment="Stretch" Fill="#53586E" Height="1"/>
@@ -32,7 +33,6 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-        <ScrollViewer Grid.Row="1"  VerticalScrollBarVisibility="Auto">
 
             <!--=========================================================================================================================
             ================================================  TODO LIST - START   ================================================================
@@ -41,6 +41,9 @@
             <!--<local:TodoListView></local:TodoListView>-->
 
             <ListView ItemsSource="{Binding Todos}" 
+                      Grid.Row="1"
+                      ScrollViewer.CanContentScroll="False"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       Background="{x:Null}"
                          SelectionMode="Multiple"
                       Width="Auto" Margin="0" Padding="0" Height="Auto" BorderThickness="0,0,0,0" HorizontalContentAlignment="Center"
@@ -55,8 +58,10 @@
                         <Setter Property="IsSelected" Value="{Binding Todo.Selected , Mode=TwoWay}" />
                     </Style>
                 </ListView.Resources>
+                    <!--<ScrollViewer HorizontalScrollBarVisibility="Disabled">-->
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+
+                        <DataTemplate>
                         <Grid Cursor="Hand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="5"/>
@@ -91,7 +96,7 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <Border  Padding="18"  Grid.Row="0">
+                                <Border  Padding="20"  Grid.Row="0">
                                     <Grid >
                                         <Grid.ColumnDefinitions >
                                             <ColumnDefinition Width="Auto"/>
@@ -100,11 +105,12 @@
                                         </Grid.ColumnDefinitions>
 
                                         <!--================================== CHECKBOX ===============================-->
-                                        <local:CheckboxView/>
+                                        <local:CheckboxView Grid.Column="0"/>
                                         <!--================================== CHECKBOX ===============================-->
 
-                                        <StackPanel  Grid.Column="1"  HorizontalAlignment="Left"  Width="450">
-                                            <TextBlock   FontSize="16"  TextWrapping="Wrap" Margin="0 0 0 7">
+                                        <!--<StackPanel  Grid.Column="1"  HorizontalAlignment="Left"  Width="450" Margin="0 0 18 0">-->
+                                        <StackPanel  Grid.Column="1"  HorizontalAlignment="Left"   Margin="0 0 20 0">
+                                            <TextBlock   FontSize="16" TextWrapping="Wrap" Margin="0 0 0 7">
                                                 <TextBlock.Style>
                                                     <Style TargetType="{x:Type TextBlock}">
                                                         <Style.Triggers>
@@ -150,7 +156,7 @@
                                                     <ContentPresenter Content="{TemplateBinding Content}"/>
                                                 </ControlTemplate>
                                             </Button.Template>
-                                            <TextBlock Text="Edit"  VerticalAlignment="Center" Margin="0 0 20 0">
+                                            <TextBlock Text="Edit"  VerticalAlignment="Center" Margin="0 0 0 0">
                                                 <TextBlock.Style>
                                                     <Style TargetType="{x:Type TextBlock}">
                                                         <Style.Triggers>
@@ -167,17 +173,17 @@
                                         </Button>
                                     </Grid>
                                 </Border>
-                                <Rectangle Grid.Row="1" HorizontalAlignment="center" Width="550" Fill="#53586E" Height="2"/>
+                                <Rectangle Grid.Row="1" HorizontalAlignment="Stretch" Margin="25 0 25 0"  Fill="#53586E" Height="2"/>
                             </Grid>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                   <!--</ScrollViewer>-->
             </ListView>
 
             <!--=========================================================================================================================
             ================================================  TODO LIST - END  ================================================================
             =========================================================================================================================-->
-        </ScrollViewer>
 
         <!--================================== TodoComposeView ===============================-->
         <local:TodoComposeView    
@@ -192,12 +198,13 @@
             <Button
                 Margin="0 0 10 0"
                  VerticalContentAlignment="center"
-                FontSize="30" Content="🗑" 
-                FontWeight="Normal" Cursor="Hand" Height="55" 
+                FontSize="30"  Content="🗑"
+                FontWeight="Normal" Cursor="Hand" Height="50" 
                 Width="50" UseLayoutRounding="True"
                 Background="#FC4850"
                 Command="{Binding DeleteCommand}" 
                        >
+                
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="28"/>
@@ -205,11 +212,12 @@
                 </Button.Resources>
             </Button>
             <Button 
-                VerticalContentAlignment="center"
-                FontSize="30" Content="+" Click="OnShowModalClick"
-                FontWeight="Normal" Cursor="Hand" Height="55" 
+                VerticalContentAlignment="center" Content="+"
+                FontSize="30" Click="OnShowModalClick"
+                FontWeight="Normal" Cursor="Hand" Height="50" 
                 Width="50" UseLayoutRounding="True"
                 Background="#FAE800" HorizontalContentAlignment="Center">
+                
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="28"/>
