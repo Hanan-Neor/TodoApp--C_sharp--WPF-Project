@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace TodoApp2.Commands
+namespace TodoApp.Commands
 {
     public abstract class CommandBase : ICommand
     {
@@ -13,7 +13,6 @@ namespace TodoApp2.Commands
 
         public virtual bool CanExecute(object? parameter)
         {
-            // throw new NotImplementedException();
             return true;
         }
 

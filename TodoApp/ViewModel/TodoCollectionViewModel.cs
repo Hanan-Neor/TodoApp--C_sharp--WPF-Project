@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TodoApp2.Commands;
-using TodoApp2.Model;
+using TodoApp.Commands;
+using TodoApp.Model;
 
-namespace TodoApp2.ViewModel
+namespace TodoApp.ViewModel
 {
-    internal class TodoViewModel : ViewModelBase
+    internal class TodoCollectionViewModel : ViewModelBase
     {
-        private List<Todo> _todos;
-        public List<Todo> Todos
+        private ObservableCollection<TodoViewModel> _todos = new ObservableCollection<TodoViewModel>();
+        public ObservableCollection<TodoViewModel> Todos
         {
             get { return _todos; }
             set
@@ -22,8 +23,8 @@ namespace TodoApp2.ViewModel
             }
         } 
         
-        private Todo? _currTodo;
-        public Todo CurrTodo
+        private TodoViewModel? _currTodo;
+        public TodoViewModel CurrTodo
         {
             get { return _currTodo; }
             set
@@ -55,53 +56,24 @@ namespace TodoApp2.ViewModel
             }
         }
 
-        private bool _selected;
-        public bool Selected
+        public ICommand AddCommand
         {
-            get => _selected;
-            set
-            {
-                _selected = value;
-                OnPropertyChanged(nameof(Selected));
-            }
-        }
-
-        private ICommand command;
-        public ICommand ActionCommand
-        {
-            get { return command ?? new RelayCommand(this); }
+            get { return new AddTodoCommand(this); }
         }
         public ICommand DeleteCommand
         {
             get { return new DeleteTodoCommand(this); }
         }
-        public ICommand SelectCommand
+       
+        public ICommand SetCurrTodoCommand
         {
-            get { return new SelectTodoCommand(this); }
-        }
-        public ICommand EditCommand
-        {
-            get { return new EditTodoCommand(this); }
+            get { return new SetCurrTodoCommand(this); }
         }
 
         public ICommand CancelCommand
         {
             get { return new CancelAddTodoCommand(this); }
         }
-        public ICommand CheckedCommand
-        {
-            get { return new CheckedTodoCommand(this); }
-        }
-
-
-
-        //public ICommand CancelCommand
-        //{
-        //    get { return new CancelViewModelCommand()}
-        //}
-        //public ICommand SubmitCommand
-        //{
-        //    get { return  new RelayCommand(this); }
-        //}
+       
     }
 }

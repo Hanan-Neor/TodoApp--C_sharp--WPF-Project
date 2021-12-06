@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TodoApp2
+namespace TodoApp.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CheckboxView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CheckboxView : UserControl
     {
-        public MainWindow()
+        public CheckboxView()
         {
             InitializeComponent();
         }
