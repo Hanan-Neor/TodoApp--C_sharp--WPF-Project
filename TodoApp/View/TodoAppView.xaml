@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        
+
         <StackPanel  Grid.Row="0">
             <TextBlock Text="Todo Items" Padding="20" Foreground="{StaticResource Yellow}" FontSize="20"/>
             <Rectangle  HorizontalAlignment="Stretch" Fill="#53586E" Height="1"/>
@@ -25,13 +25,13 @@
         <TextBlock x:Name="init" Grid.Row="1" Text="Wow, empty here.. Start Todoing!" Margin="0 20 0 0" Foreground="white" FontSize="16" TextAlignment="Center">
         </TextBlock>
 
-            <!--=========================================================================================================================
+        <!--=========================================================================================================================
             ================================================  TODO LIST - START   ================================================================
             =========================================================================================================================-->
 
-            <!--<local:TodoListView></local:TodoListView>-->
+        <!--<local:TodoListView></local:TodoListView>-->
 
-            <ListView ItemsSource="{Binding Todos}" 
+        <ListView ItemsSource="{Binding Todos}" 
                       
                       Grid.Row="1"
                       ScrollViewer.CanContentScroll="False"
@@ -40,138 +40,169 @@
                          SelectionMode="Multiple"
                       Width="Auto" Margin="0" Padding="0" Height="Auto" BorderThickness="0,0,0,0" HorizontalContentAlignment="Center"
                       >
-                <ListView.Resources>
-                    <Style TargetType="{x:Type ListViewItem}">
-                        <Setter Property="Padding" Value="0"></Setter>
-                        <Setter Property="Margin" Value="0"></Setter>
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                        <Setter Property="BorderThickness" Value="0"></Setter>
-                        <Setter Property="BorderBrush" Value="Transparent"></Setter>
-                        <Setter Property="IsSelected" Value="{Binding Todo.Selected , Mode=TwoWay}" />
-                    </Style>
-                </ListView.Resources>
-                    <!--<ScrollViewer HorizontalScrollBarVisibility="Disabled">-->
-                <ListView.ItemTemplate>
+            <ListView.Resources>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Padding" Value="0"></Setter>
+                    <Setter Property="Margin" Value="0"></Setter>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    <Setter Property="BorderThickness" Value="0"></Setter>
+                    <Setter Property="BorderBrush" Value="Transparent"></Setter>
+                    <Setter Property="IsSelected" Value="{Binding Todo.Selected , Mode=TwoWay}" />
+                </Style>
+                
+                <Style  TargetType="{x:Type ScrollViewer}">
+                    <!--<Setter Property="OverridesDefaultStyle" Value="True" />-->
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <ScrollContentPresenter Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                    </ScrollContentPresenter>
+                                    <ScrollBar Name="PART_VerticalScrollBar"
+                            HorizontalAlignment="Right"
+                                   Grid.RowSpan="2"
+                            Grid.Column="1"
+                            Value="{TemplateBinding VerticalOffset}"
+                            Maximum="{TemplateBinding ScrollableHeight}"
+                            ViewportSize="{TemplateBinding ViewportHeight}"
+                            Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" />
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.Resources>
+            <!--<ScrollViewer HorizontalScrollBarVisibility="Disabled">-->
+            <ListView.ItemTemplate>
 
-                        <DataTemplate>
-                        <Grid Cursor="Hand">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                <DataTemplate>
+                    <Grid Cursor="Hand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.Style>
+                            <Style TargetType="{x:Type Grid}">
+                                <Setter Property="Background" Value="{StaticResource TodoColor}"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#2E3047"/>
+                                    </Trigger>
+                                    <DataTrigger Binding="{Binding Todo.Selected}" Value="true">
+                                        <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Grid Grid.Column="0" Width="5" >
                             <Grid.Style>
                                 <Style TargetType="{x:Type Grid}">
-                                <Setter Property="Background" Value="{StaticResource TodoColor}"/>
                                     <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#2E3047"/>
-                                        </Trigger>
                                         <DataTrigger Binding="{Binding Todo.Selected}" Value="true">
-                                        <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
+                                            <Setter Property="Background" Value="{StaticResource Yellow}"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </Grid.Style>
-                            <Grid Grid.Column="0" Width="5" >
-                                <Grid.Style>
-                                    <Style TargetType="{x:Type Grid}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Todo.Selected}" Value="true">
-                                            <Setter Property="Background" Value="{StaticResource Yellow}"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Grid.Style>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Border  Padding="20"  Grid.Row="0">
-                                    <Grid >
-                                        <Grid.ColumnDefinitions >
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Border  Padding="20"  Grid.Row="0">
+                                <Grid >
+                                    <Grid.ColumnDefinitions >
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="6*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <!--================================== CHECKBOX ===============================-->
-                                        <local:CheckboxView Grid.Column="0"/>
-                                        <!--================================== CHECKBOX ===============================-->
+                                    <!--================================== CHECKBOX ===============================-->
+                                    <local:CheckboxView Grid.Column="0"/>
+                                    <!--================================== CHECKBOX ===============================-->
 
-                                        <!--<StackPanel  Grid.Column="1"  HorizontalAlignment="Left"  Width="450" Margin="0 0 18 0">-->
-                                        <StackPanel  Grid.Column="1"  HorizontalAlignment="Left"   Margin="0 0 20 0">
-                                            <TextBlock   FontSize="16" TextWrapping="Wrap" Margin="0 0 0 7">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="{x:Type TextBlock}">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding IsChecked}" Value="true">
-                                                                <Setter Property="Foreground" Value="#6E7386"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding IsChecked}" Value="False">
-                                                                <Setter Property="Foreground" Value="White"/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
+                                    <!--<StackPanel  Grid.Column="1"  HorizontalAlignment="Left"  Width="450" Margin="0 0 18 0">-->
+                                    <StackPanel  Grid.Column="1"  HorizontalAlignment="Left"   Margin="0 0 20 0">
+                                        <TextBlock   FontSize="16" TextWrapping="Wrap" Margin="0 0 0 7">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsChecked}" Value="true">
+                                                            <Setter Property="Foreground" Value="#6E7386"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsChecked}" Value="False">
+                                                            <Setter Property="Foreground" Value="White"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
                                                 <Run  Text="{Binding Id}" /><Run Text=". "/><Run Text="{Binding Title}" />
                                                 <!--<Run Text="{Binding IsChecked}" />-->
                                          <!--<Run Text="{Binding Todo.Selected}"-->
-                                            </TextBlock>
-                                            <TextBlock Text="{Binding Description}" FontSize="12" TextWrapping="Wrap">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="{x:Type TextBlock}">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding IsChecked}" Value="true">
-                                                                <Setter Property="Foreground" Value="#525671"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding IsChecked}" Value="False">
-                                                                <Setter Property="Foreground" Value="#9699AC"/>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
-                                        </StackPanel>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Description}" FontSize="12" TextWrapping="Wrap">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsChecked}" Value="true">
+                                                            <Setter Property="Foreground" Value="#525671"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsChecked}" Value="False">
+                                                            <Setter Property="Foreground" Value="#9699AC"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
 
-                                        <!--================= Edit Button =================-->
-                                        <Button Grid.Column="2"
+                                    <!--================= Edit Button =================-->
+                                    <Button Grid.Column="2"
+                                            HorizontalAlignment="center"
                                         Click="OnShowModalClick"
                                                         Command="{Binding DataContext.SetCurrTodoCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
                                                          CommandParameter="{Binding Id}"
                                                         >
-                                            <Button.Template>
-                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                    <ContentPresenter Content="{TemplateBinding Content}"/>
-                                                </ControlTemplate>
-                                            </Button.Template>
-                                            <TextBlock Text="Edit"  VerticalAlignment="Center" Margin="0 0 0 0">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="{x:Type TextBlock}">
-                                                        <Style.Triggers>
-                                                            <Trigger Property="IsMouseOver" Value="True">
-                                                                <Setter Property="Foreground" Value="LightGray"/>
-                                                            </Trigger>
-                                                            <Trigger Property="IsMouseOver" Value="False">
-                                                                <Setter Property="Foreground" Value="#9699AC"/>
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
-                                        </Button>
-                                    </Grid>
-                                </Border>
-                                <Rectangle Grid.Row="1" HorizontalAlignment="Stretch" Margin="25 0 25 0"  Fill="#53586E" Height="2"/>
-                            </Grid>
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <ContentPresenter Content="{TemplateBinding Content}"/>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                        <TextBlock Text="Edit"  VerticalAlignment="Center" Margin="0 0 0 0">
+                                            <TextBlock.Style>
+                                                <Style TargetType="{x:Type TextBlock}">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Foreground" Value="LightGray"/>
+                                                        </Trigger>
+                                                        <Trigger Property="IsMouseOver" Value="False">
+                                                            <Setter Property="Foreground" Value="#9699AC"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                            <Rectangle Grid.Row="1" HorizontalAlignment="Stretch" Margin="25 0 25 0"  Fill="#53586E" Height="2"/>
                         </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-                   <!--</ScrollViewer>-->
-            </ListView>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <!--</ScrollViewer>-->
+        </ListView>
 
-            <!--=========================================================================================================================
+        <!--=========================================================================================================================
             ================================================  TODO LIST - END  ================================================================
             =========================================================================================================================-->
 
@@ -194,7 +225,7 @@
                 Background="{StaticResource red}"
                 Command="{Binding DeleteCommand}" 
                        >
-                
+
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="28"/>
@@ -207,7 +238,7 @@
                 FontWeight="Normal" Cursor="Hand" Height="50" 
                 Width="50" UseLayoutRounding="True"
                 Background="{StaticResource Yellow}" HorizontalContentAlignment="Center">
-                
+
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="28"/>

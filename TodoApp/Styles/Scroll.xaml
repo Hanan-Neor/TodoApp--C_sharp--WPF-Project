@@ -12,7 +12,7 @@
                                 SnapsToDevicePixels="True"
                                 Background="#68657A"
                                 CornerRadius="3"
-                                Width="10"
+                                Width="9"
                             />
                 </ControlTemplate>
             </Setter.Value>
@@ -21,17 +21,27 @@
 
     <Style TargetType="{x:Type ScrollBar}">
         <Setter Property="LargeChange" Value="0.1"></Setter>
+        <Setter Property="SmallChange" Value="0.1"></Setter>
         <!--<Setter Property="Panel.ZIndex" Value="20"></Setter>-->
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
-        <Setter Property="Width" Value="14"/>
-        <Setter Property="Margin" Value=" 0 0 5 0" />
+        <Setter Property="Width" Value="9"/>
+        <Setter Property="Margin" Value=" 0 10 5 10" />
         <Setter Property="MinWidth" Value="{Binding Width, RelativeSource={RelativeSource Self}}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollBar}">
                     <Grid x:Name="Bg" SnapsToDevicePixels="true" Background="Transparent">
-
+                        <!--<Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ScrollContentPresenter Grid.ColumnSpan="2" Grid.RowSpan="2"/>-->
+                        
                         <Border>
                             <!--padding-->
                             <Track x:Name="PART_Track"
@@ -48,5 +58,55 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!--<Style x:Key="ListViewScroll"  TargetType="{x:Type ScrollViewer}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ScrollContentPresenter Grid.ColumnSpan="2" Grid.RowSpan="2">
+                            --><!--<Style TargetType="{x:Type ScrollContentPresenter}">
+                                <Style.Setters>
+                                <Setter Property=""></Setter>
+                                    
+                                </Style.Setters>
+                            </Style>--><!--
+                        </ScrollContentPresenter>
+                            --><!--Opacity="0.5"--><!-- 
+                        <ScrollBar Name="PART_VerticalScrollBar"
+                            HorizontalAlignment="Right"
+                                   Grid.RowSpan="2"
+                            Grid.Column="1"
+                            Value="{TemplateBinding VerticalOffset}"
+                            Maximum="{TemplateBinding ScrollableHeight}"
+                            ViewportSize="{TemplateBinding ViewportHeight}"
+                            Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" />
+                        
+                        
+                        --><!--<ScrollBar Name="PART_HorizontalScrollBar"
+                            VerticalAlignment="Bottom"
+                            Orientation="Horizontal"
+                            Opacity="0.5"
+                            Grid.Row="1"
+                            Value="{TemplateBinding HorizontalOffset}"
+                            Maximum="{TemplateBinding ScrollableWidth}"
+                            ViewportSize="{TemplateBinding ViewportWidth}"
+                            Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>--><!--
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
+
 
 </ResourceDictionary>
