@@ -20,6 +20,7 @@
     </Style>
 
     <Style TargetType="{x:Type ScrollBar}">
+        <Setter Property="LargeChange" Value="0.1"></Setter>
         <!--<Setter Property="Panel.ZIndex" Value="20"></Setter>-->
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
