@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TodoApp.View" xmlns:viewmodel="clr-namespace:TodoApp.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:TodoViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
+ 
     <Button Command="{Binding CheckedCommand}">
         <Button.Template>
             <ControlTemplate TargetType="{x:Type Button}">
@@ -18,19 +18,19 @@
                 <Style TargetType="{x:Type Border}">
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderBrush" Value="#fae800"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource Yellow}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="False">
-                            <Setter Property="BorderBrush" Value="white"/>
+                            <Setter Property="BorderBrush" Value="#fff"/>
                         </Trigger>
                         <DataTrigger Binding="{Binding IsChecked}" Value="True">
-                            <Setter Property="Background" Value="#fae800"/>
-                            <Setter Property="BorderBrush" Value="#fae800" />
+                            <Setter Property="Background" Value="{StaticResource Yellow}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource Yellow}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Border.Style>
-            <Grid HorizontalAlignment="Stretch" Height="22" Margin="0"  Background="#fae800">
+            <Grid HorizontalAlignment="Stretch" Height="22" Margin="0"  Background="{StaticResource Yellow}">
                 <Grid.Style>
                     <Style TargetType="{x:Type Grid}">
                         <Style.Triggers>

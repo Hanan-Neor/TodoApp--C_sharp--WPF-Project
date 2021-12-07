@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:TodoApp.View"
         xmlns:viewModel="clr-namespace:TodoApp.ViewModel"
         mc:Ignorable="d"
-        Title="TodoAppView" Height="550" Width="600" Background="#242638">
+        Title="TodoAppView" Height="550" Width="600" Background="{StaticResource BackgroundColor}">
 
     <Window.DataContext>
         <viewModel:TodoCollectionViewModel></viewModel:TodoCollectionViewModel>
     </Window.DataContext>
-   
+
     <Grid Name="MainGrid" Background="#242638">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -19,19 +19,10 @@
         </Grid.RowDefinitions>
         
         <StackPanel  Grid.Row="0">
-            <TextBlock Text="Todo Items" Padding="20" Foreground="#fae800" FontSize="20"/>
+            <TextBlock Text="Todo Items" Padding="20" Foreground="{StaticResource Yellow}" FontSize="20"/>
             <Rectangle  HorizontalAlignment="Stretch" Fill="#53586E" Height="1"/>
         </StackPanel>
         <TextBlock x:Name="init" Grid.Row="1" Text="Wow, empty here.. Start Todoing!" Margin="0 20 0 0" Foreground="white" FontSize="16" TextAlignment="Center">
-            <TextBlock.Style>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Title}" Value="'a'">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
         </TextBlock>
 
             <!--=========================================================================================================================
@@ -41,6 +32,7 @@
             <!--<local:TodoListView></local:TodoListView>-->
 
             <ListView ItemsSource="{Binding Todos}" 
+                      
                       Grid.Row="1"
                       ScrollViewer.CanContentScroll="False"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -69,13 +61,13 @@
                             </Grid.ColumnDefinitions>
                             <Grid.Style>
                                 <Style TargetType="{x:Type Grid}">
-                                    <Setter Property="Background" Value="#33364F"/>
+                                <Setter Property="Background" Value="{StaticResource TodoColor}"/>
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
                                             <Setter Property="Background" Value="#2E3047"/>
                                         </Trigger>
                                         <DataTrigger Binding="{Binding Todo.Selected}" Value="true">
-                                            <Setter Property="Background" Value="#242638"/>
+                                        <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -85,7 +77,7 @@
                                     <Style TargetType="{x:Type Grid}">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding Todo.Selected}" Value="true">
-                                                <Setter Property="Background" Value="#fae800"/>
+                                            <Setter Property="Background" Value="{StaticResource Yellow}"/>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
@@ -123,9 +115,7 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </TextBlock.Style>
-                                                <Run  Text="{Binding Id}" />
-                                                <Run Text=". "/>
-                                                <Run Text="{Binding Title}" />
+                                                <Run  Text="{Binding Id}" /><Run Text=". "/><Run Text="{Binding Title}" />
                                                 <!--<Run Text="{Binding IsChecked}" />-->
                                          <!--<Run Text="{Binding Todo.Selected}"-->
                                             </TextBlock>
@@ -198,10 +188,10 @@
             <Button
                 Margin="0 0 10 0"
                  VerticalContentAlignment="center"
-                FontSize="30"  Content="🗑"
+                FontSize="27" Foreground="#fff" Content="🗑"
                 FontWeight="Normal" Cursor="Hand" Height="50" 
                 Width="50" UseLayoutRounding="True"
-                Background="#FC4850"
+                Background="{StaticResource red}"
                 Command="{Binding DeleteCommand}" 
                        >
                 
@@ -212,11 +202,11 @@
                 </Button.Resources>
             </Button>
             <Button 
-                VerticalContentAlignment="center" Content="+"
-                FontSize="30" Click="OnShowModalClick"
+                VerticalContentAlignment="center" Content="➕"
+                FontSize="27" Click="OnShowModalClick"
                 FontWeight="Normal" Cursor="Hand" Height="50" 
                 Width="50" UseLayoutRounding="True"
-                Background="#FAE800" HorizontalContentAlignment="Center">
+                Background="{StaticResource Yellow}" HorizontalContentAlignment="Center">
                 
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">

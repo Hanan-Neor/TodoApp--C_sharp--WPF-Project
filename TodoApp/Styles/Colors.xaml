@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:TodoApp">
+
+
+
+    <!--<Color x:Key="Yellow">#fae800</Color>-->
+
+    <SolidColorBrush x:Key="Yellow" Color="#fae800" />
+    <SolidColorBrush x:Key="BackgroundColor" Color="#242638" />
+    <SolidColorBrush x:Key="TodoColor" Color="#33364F" />
+    <SolidColorBrush x:Key="red" Color="#FC4850" />
+    
+    <!--<Color x:Key="ex">#00c541</Color>
+    <SolidColorBrush x:Key="WordGreenBrush" Color="{StaticResource ex}" />-->
+</ResourceDictionary>
