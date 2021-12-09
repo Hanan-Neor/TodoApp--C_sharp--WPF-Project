@@ -49,7 +49,7 @@
                     <Setter Property="BorderBrush" Value="Transparent"></Setter>
                     <Setter Property="IsSelected" Value="{Binding Todo.Selected , Mode=TwoWay}" />
                 </Style>
-                
+
                 <Style  TargetType="{x:Type ScrollViewer}">
                     <!--<Setter Property="OverridesDefaultStyle" Value="True" />-->
                     <Setter Property="Template">
@@ -177,7 +177,7 @@
                                                 <ContentPresenter Content="{TemplateBinding Content}"/>
                                             </ControlTemplate>
                                         </Button.Template>
-                                        <TextBlock Text="Edit"  VerticalAlignment="Center" Margin="0 0 0 0">
+                                        <TextBlock Text="✏"  VerticalAlignment="Center" Margin="0 0 0 0">
                                             <TextBlock.Style>
                                                 <Style TargetType="{x:Type TextBlock}">
                                                     <Style.Triggers>
@@ -217,15 +217,13 @@
 
         <StackPanel Grid.RowSpan="2" Margin="20 10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button
-                Margin="0 0 10 0"
-                 VerticalContentAlignment="center"
-                FontSize="27" Foreground="#fff" Content="🗑"
-                FontWeight="Normal" Cursor="Hand" Height="50" 
-                Width="50" UseLayoutRounding="True"
+                Style="{StaticResource AddDeleteButtons}"
+                Margin="0 0 10 0" 
+                Content="🗑"
                 Background="{StaticResource red}"
+                Foreground="#fff"
                 Command="{Binding DeleteCommand}" 
                        >
-
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="28"/>
@@ -233,12 +231,10 @@
                 </Button.Resources>
             </Button>
             <Button 
-                VerticalContentAlignment="center" Content="➕"
-                FontSize="27" Click="OnShowModalClick"
-                FontWeight="Normal" Cursor="Hand" Height="50" 
-                Width="50" UseLayoutRounding="True"
+                Style="{StaticResource AddDeleteButtons}"
+             Content="➕"
+               Click="OnShowModalClick"
                 Background="{StaticResource Yellow}" HorizontalContentAlignment="Center">
-
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="28"/>

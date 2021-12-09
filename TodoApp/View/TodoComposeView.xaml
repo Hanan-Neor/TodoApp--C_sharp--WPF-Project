@@ -18,8 +18,20 @@
             <Rectangle Fill="Black" Opacity="0.5" Cursor="Hand">
             </Rectangle>
         </Button>
-        <Border  Width="400"
-          Height="400" Background="#fff"
+        <Grid HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="7*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--<TextBlock Grid.Column="0" Grid.Row="1"></TextBlock>-->
+            <Border Grid.Column="1"  Grid.Row="1"
+          Background="#fff"
                  CornerRadius="10"
                  Padding="20 10">
             <Grid>
@@ -80,5 +92,8 @@
                 </Grid>
             </Grid>
         </Border>
+            <!--<TextBlock Grid.Column="2"  Grid.Row="1"></TextBlock>-->
+
+        </Grid>
     </Grid>
 </UserControl>
